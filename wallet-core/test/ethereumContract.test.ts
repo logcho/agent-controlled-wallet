@@ -21,7 +21,7 @@ async function main() {
   // READ
   const name = await ContractInteractor.read(
     wallet,
-    process.env.ERC20_ADDRESS!,
+    process.env.LINK_ADDRESS!,
     ERC20_ABI,
     "name"
   );
@@ -30,7 +30,7 @@ async function main() {
   // WRITE (example)
   const txHash = await ContractInteractor.write(
     wallet,
-    process.env.ERC20_ADDRESS!,
+    process.env.LINK_ADDRESS!,
     ERC20_ABI,
     "transfer",
     [RECIPIENT, ethers.parseUnits("1", 18)],
