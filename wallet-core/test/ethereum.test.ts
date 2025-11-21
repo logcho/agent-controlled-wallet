@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { EthereumWallet } from "./wallets/EthereumWallet.js";
+import { EthereumWallet } from "../src/wallets/EthereumWallet.js";
 import "dotenv/config"; 
 
 async function main() {

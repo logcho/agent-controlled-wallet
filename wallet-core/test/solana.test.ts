@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { SolanaWallet } from "./wallets/SolanaWallet.js";
+import { SolanaWallet } from "../src/wallets/SolanaWallet.js";
 import { PublicKey } from "@solana/web3.js";
 
 async function main() {
