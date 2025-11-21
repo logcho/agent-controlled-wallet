@@ -4,14 +4,14 @@ import "dotenv/config";
 
 async function main() {
   // RPC configuration (use Alchemy Sepolia endpoint)
-  const RPC_URL = process.env.ALCHEMY_RPC_URL as string;
+  const RPC_URL = process.env.ETH_RPC_URL as string;
 
   // Private key for a wallet funded with Sepolia test ETH
-  const PRIVATE_KEY = process.env.PRIVATE_KEY as string;
+  const PRIVATE_KEY = process.env.ETH_PRIVATE_KEY as string;
 
   // Amount (in ETH) and recipient address
   const SEND_AMOUNT = "0.001";
-  const RECIPIENT = process.env.RECIPIENT as string;
+  const RECIPIENT = process.env.ETH_RECIPIENT as string;
 
   console.log("Starting EthereumWallet test...\n");
 
