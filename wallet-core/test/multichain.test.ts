@@ -25,7 +25,6 @@ async function main() {
     assert(addresses.Solana.length > 30, "Solana address valid");
     assert(addresses.Cosmos.startsWith("akash"), "Cosmos address uses configured prefix");
 
-    // 2. Test Get Wallet Accessors
     console.log("Testing Accessors...");
     const eth = multiWallet.getWallet("eth");
     assert(eth === multiWallet.ethereum, "Accessing 'eth' returns ethereum wallet");
@@ -34,6 +33,27 @@ async function main() {
     const sol = multiWallet.getWallet("solana");
     assert(sol, "Solana wallet accessed");
     assert(sol.chain === "Solana", "Solana chain matches");
+
+    // 3. Test Proxy Methods
+    console.log("Testing Proxy Methods...");
+
+    // getAddress
+    const ethAddress = multiWallet.getAddress("eth");
+    assert(ethAddress === addresses.Ethereum, "Proxy getAddress matches");
+
+    // getBalance (Etherem mainnet RPC might fail if offline/rate-limited, but we are using Sepolia)
+    // We expect it to resolve to a string (even "0.0")
+    const bal = await multiWallet.getBalance("eth");
+    assert(typeof bal === "string", "Balance is string");
+    console.log(`ETH Balance via proxy: ${bal}`);
+
+    // Error handling
+    try {
+        multiWallet.getAddress("bitcoin");
+        assert.fail("Should throw on unsupported chain");
+    } catch (e: any) {
+        assert(e.message.includes("Unsupported chain"), "Error message correct");
+    }
 
     console.log("MultiChain Wallet Tests Passed!");
 }

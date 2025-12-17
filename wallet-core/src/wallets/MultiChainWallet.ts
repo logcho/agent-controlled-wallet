@@ -81,4 +81,60 @@ export class MultiChainWallet {
             Cosmos: this.cosmos.getAddress(),
         };
     }
+
+    // Proxy Methods
+
+    /**
+     * Get address for a specific chain.
+     */
+    getAddress(chain: string): string {
+        const wallet = this.getWallet(chain);
+        if (!wallet) throw new Error(`Unsupported chain: ${chain}`);
+        return wallet.getAddress();
+    }
+
+    /**
+     * Get balance for a specific chain.
+     */
+    async getBalance(chain: string): Promise<string> {
+        const wallet = this.getWallet(chain);
+        if (!wallet) throw new Error(`Unsupported chain: ${chain}`);
+        return await wallet.getBalance();
+    }
+
+    /**
+     * Sign a message for a specific chain.
+     */
+    async signMessage(chain: string, message: string | Uint8Array): Promise<string> {
+        const wallet = this.getWallet(chain);
+        if (!wallet) throw new Error(`Unsupported chain: ${chain}`);
+        return await wallet.signMessage(message);
+    }
+
+    /**
+     * Sign a transaction for a specific chain.
+     */
+    async signTransaction(chain: string, txData: unknown): Promise<string | Uint8Array> {
+        const wallet = this.getWallet(chain);
+        if (!wallet) throw new Error(`Unsupported chain: ${chain}`);
+        return await wallet.signTransaction(txData);
+    }
+
+    /**
+     * Send a signed transaction for a specific chain.
+     */
+    async sendTransaction(chain: string, signedTx: string | Uint8Array): Promise<string> {
+        const wallet = this.getWallet(chain);
+        if (!wallet) throw new Error(`Unsupported chain: ${chain}`);
+        return await wallet.sendTransaction(signedTx);
+    }
+
+    /**
+     * Get network info for a specific chain.
+     */
+    async getNetworkInfo(chain: string): Promise<Record<string, string | number | undefined>> {
+        const wallet = this.getWallet(chain);
+        if (!wallet) throw new Error(`Unsupported chain: ${chain}`);
+        return await wallet.getNetworkInfo();
+    }
 }
